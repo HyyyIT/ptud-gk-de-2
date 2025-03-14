@@ -41,23 +41,29 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     {% if user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link position-relative" href="{% url 'profile' %}">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle position-relative" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {% if user.profile and user.profile.avatar %}
                                 <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}" class="rounded-circle mr-1" style="width: 25px; height: 25px;">
                             {% else %}
                                 <i class="fas fa-user-circle mr-1"></i>
                             {% endif %}
                             {{ user.username }}
-                            {% if user.is_authenticated and overdue_tasks_count > 0 %}
+                            {% if overdue_tasks_count > 0 %}
                             <span class="badge badge-danger badge-pill position-absolute" style="top: 0; right: 0;">
                                 {{ overdue_tasks_count }}
                             </span>
                             {% endif %}
                         </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="{% url 'profile' %}">
+                                <i class="fas fa-user-cog mr-2"></i>Profile
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'logout' %}">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                            </a>
+                        </div>
                     </li>
                     {% else %}
                     <li class="nav-item">

@@ -9,6 +9,28 @@ class UserRegisterForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'email', 'password1', 'password2']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Tùy chỉnh các validation rules cho username
+        self.fields['username'].help_text = 'Tên tài khoản có thể chứa chữ cái, số và ký tự đặc biệt.'
+        self.fields['username'].validators = []
+        self.fields['username'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Nhập tên tài khoản'
+        })
+        self.fields['email'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Nhập email'
+        })
+        self.fields['password1'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Nhập mật khẩu'
+        })
+        self.fields['password2'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Nhập lại mật khẩu'
+        })
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()

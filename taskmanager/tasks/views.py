@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib import messages
+from django.contrib.auth import logout
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
@@ -13,8 +14,6 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # Create profile for user
-            Profile.objects.create(user=user)
             # Create a default category
             Category.objects.create(
                 name='General',
@@ -43,10 +42,16 @@ def profile(request):
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
     
+    tasks = Task.objects.filter(user=request.user)
+    
     context = {
         'u_form': u_form,
         'p_form': p_form,
-        'overdue_tasks_count': request.user.profile.overdue_tasks_count()
+        'overdue_tasks_count': request.user.profile.overdue_tasks_count(),
+        'total_tasks_count': tasks.count(),
+        'pending_tasks_count': tasks.filter(status='pending').count(),
+        'in_progress_tasks_count': tasks.filter(status='in_progress').count(),
+        'completed_tasks_count': tasks.filter(status='completed').count()
     }
     return render(request, 'tasks/profile.html', context)
 
@@ -165,3 +170,11 @@ class CategoryCreateView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['overdue_tasks_count'] = self.request.user.profile.overdue_tasks_count()
         return context
+
+@login_required
+def logout_view(request):
+    if request.method == 'POST':
+        logout(request)
+        messages.success(request, 'You have been successfully logged out!')
+        return redirect('login')
+    return render(request, 'tasks/logout.html')

@@ -56,7 +56,7 @@
                         <div class="col-md-3">
                             <div class="card border-secondary mb-3">
                                 <div class="card-body">
-                                    <h1 class="display-4">{{ user.tasks.count }}</h1>
+                                    <h1 class="display-4">{{ total_tasks_count }}</h1>
                                     <p class="text-muted">Total Tasks</p>
                                 </div>
                             </div>
@@ -64,7 +64,7 @@
                         <div class="col-md-3">
                             <div class="card border-warning mb-3">
                                 <div class="card-body">
-                                    <h1 class="display-4">{{ user.tasks.all|dictsortby:"status"|dictsort:"pending"|length }}</h1>
+                                    <h1 class="display-4">{{ pending_tasks_count }}</h1>
                                     <p class="text-muted">Pending</p>
                                 </div>
                             </div>
@@ -72,7 +72,7 @@
                         <div class="col-md-3">
                             <div class="card border-info mb-3">
                                 <div class="card-body">
-                                    <h1 class="display-4">{{ user.tasks.all|dictsortby:"status"|dictsort:"in_progress"|length }}</h1>
+                                    <h1 class="display-4">{{ in_progress_tasks_count }}</h1>
                                     <p class="text-muted">In Progress</p>
                                 </div>
                             </div>
@@ -80,7 +80,7 @@
                         <div class="col-md-3">
                             <div class="card border-success mb-3">
                                 <div class="card-body">
-                                    <h1 class="display-4">{{ user.tasks.all|dictsortby:"status"|dictsort:"completed"|length }}</h1>
+                                    <h1 class="display-4">{{ completed_tasks_count }}</h1>
                                     <p class="text-muted">Completed</p>
                                 </div>
                             </div>
