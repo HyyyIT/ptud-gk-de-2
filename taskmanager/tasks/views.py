@@ -6,6 +6,8 @@ from django.contrib.auth import logout
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
+from django.core.files.base import ContentFile
+import requests
 from .models import Task, Profile, Category
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, TaskForm, CategoryForm
 
@@ -35,7 +37,26 @@ def profile(request):
         
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
-            p_form.save()
+            
+            # Xử lý avatar từ URL
+            avatar_url = request.POST.get('avatar_url')
+            if avatar_url:
+                try:
+                    response = requests.get(avatar_url)
+                    if response.status_code == 200:
+                        # Tạo tên file từ URL
+                        file_name = f"avatar_{request.user.username}.png"
+                        # Lưu avatar vào profile
+                        request.user.profile.avatar.save(
+                            file_name,
+                            ContentFile(response.content),
+                            save=True
+                        )
+                except Exception as e:
+                    messages.error(request, f'Error downloading avatar: {str(e)}')
+            else:
+                p_form.save()
+            
             messages.success(request, f'Your account has been updated!')
             return redirect('profile')
     else:
