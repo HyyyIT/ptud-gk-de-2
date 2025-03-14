@@ -1,17 +1,17 @@
 {% extends 'tasks/base.html' %}
 
-{% block title %}My Tasks - Task Manager{% endblock %}
+{% block title %}Công Việc Của Tôi - Quản Lý Công Việc{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <!-- Header with user info -->
+            <!-- Thông tin người dùng -->
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h2>My Tasks</h2>
+                <h2>Công Việc Của Tôi</h2>
                 <div class="d-flex align-items-center">
                     <a href="{% url 'task-create' %}" class="btn btn-success mr-2">
-                        <i class="fas fa-plus"></i> New Task
+                        <i class="fas fa-plus"></i> Thêm Công Việc
                     </a>
                     <div class="position-relative ml-2">
                         <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}" class="rounded-circle" style="width: 40px; height: 40px;">
@@ -24,29 +24,29 @@
                 </div>
             </div>
             
-            <!-- Filter options -->
+            <!-- Bộ lọc -->
             <div class="card mb-4">
                 <div class="card-body">
                     <form method="get" class="form-inline">
                         <div class="form-group mr-2">
-                            <label for="status" class="mr-2">Status:</label>
+                            <label for="status" class="mr-2">Trạng thái:</label>
                             <select name="status" id="status" class="form-control">
-                                <option value="">All</option>
-                                <option value="pending" {% if request.GET.status == 'pending' %}selected{% endif %}>Pending</option>
-                                <option value="in_progress" {% if request.GET.status == 'in_progress' %}selected{% endif %}>In Progress</option>
-                                <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>Completed</option>
-                                <option value="cancelled" {% if request.GET.status == 'cancelled' %}selected{% endif %}>Cancelled</option>
+                                <option value="">Tất cả</option>
+                                <option value="pending" {% if request.GET.status == 'pending' %}selected{% endif %}>Chờ xử lý</option>
+                                <option value="in_progress" {% if request.GET.status == 'in_progress' %}selected{% endif %}>Đang thực hiện</option>
+                                <option value="completed" {% if request.GET.status == 'completed' %}selected{% endif %}>Đã hoàn thành</option>
+                                <option value="cancelled" {% if request.GET.status == 'cancelled' %}selected{% endif %}>Đã hủy</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <button type="submit" class="btn btn-primary">Lọc</button>
                         {% if request.GET.status %}
-                        <a href="{% url 'task-list' %}" class="btn btn-outline-secondary ml-2">Clear</a>
+                        <a href="{% url 'task-list' %}" class="btn btn-outline-secondary ml-2">Xóa bộ lọc</a>
                         {% endif %}
                     </form>
                 </div>
             </div>
             
-            <!-- Tasks List -->
+            <!-- Danh sách công việc -->
             {% if tasks %}
                 {% for task in tasks %}
                 <div class="card mb-3 {% if task.is_overdue %}border-danger{% endif %}">
@@ -54,7 +54,7 @@
                         <h5 class="mb-0">{{ task.title }}</h5>
                         <div>
                             {% if task.is_overdue %}
-                            <span class="badge badge-danger mr-2">Overdue</span>
+                            <span class="badge badge-danger mr-2">Quá hạn</span>
                             {% endif %}
                             <span class="badge 
                                 {% if task.status == 'pending' %}badge-warning
@@ -72,16 +72,16 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <small class="text-muted">
-                                    <strong>Created:</strong> {{ task.created|date:"M d, Y H:i" }}
+                                    <strong>Ngày tạo:</strong> {{ task.created|date:"d/m/Y H:i" }}
                                 </small>
                             </div>
                             <div class="col-md-6">
                                 <small class="text-muted">
-                                    <strong>Deadline:</strong>
+                                    <strong>Hạn chót:</strong>
                                     {% if task.deadline %}
-                                        {{ task.deadline|date:"M d, Y H:i" }}
+                                        {{ task.deadline|date:"d/m/Y H:i" }}
                                     {% else %}
-                                        Not set
+                                        Chưa đặt
                                     {% endif %}
                                 </small>
                             </div>
@@ -89,33 +89,33 @@
                         
                         {% if task.category %}
                         <small class="text-muted d-block mt-2">
-                            <strong>Category:</strong> {{ task.category.name }}
+                            <strong>Danh mục:</strong> {{ task.category.name }}
                         </small>
                         {% endif %}
                         
                         {% if task.finished %}
                         <small class="text-success d-block mt-2">
-                            <strong>Completed on:</strong> {{ task.finished|date:"M d, Y H:i" }}
+                            <strong>Hoàn thành lúc:</strong> {{ task.finished|date:"d/m/Y H:i" }}
                         </small>
                         {% endif %}
                     </div>
                     <div class="card-footer d-flex justify-content-end">
                         <a href="{% url 'task-detail' task.id %}" class="btn btn-sm btn-info mr-2">
-                            <i class="fas fa-eye"></i> View
+                            <i class="fas fa-eye"></i> Xem
                         </a>
                         <a href="{% url 'task-update' task.id %}" class="btn btn-sm btn-primary mr-2">
-                            <i class="fas fa-edit"></i> Edit
+                            <i class="fas fa-edit"></i> Sửa
                         </a>
                         <a href="{% url 'task-delete' task.id %}" class="btn btn-sm btn-danger">
-                            <i class="fas fa-trash"></i> Delete
+                            <i class="fas fa-trash"></i> Xóa
                         </a>
                     </div>
                 </div>
                 {% endfor %}
             {% else %}
                 <div class="alert alert-info">
-                    <h4 class="alert-heading">No tasks found!</h4>
-                    <p>You haven't created any tasks yet. Click the "New Task" button to get started.</p>
+                    <h4 class="alert-heading">Không tìm thấy công việc nào!</h4>
+                    <p>Bạn chưa tạo công việc nào. Nhấn nút "Thêm Công Việc" để bắt đầu.</p>
                 </div>
             {% endif %}
         </div>

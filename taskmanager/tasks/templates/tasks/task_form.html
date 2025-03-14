@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    {% if form.instance.id %}Edit Task{% else %}New Task{% endif %} - Task Manager
+    {% if form.instance.id %}Sửa Công Việc{% else %}Thêm Công Việc{% endif %} - Quản Lý Công Việc
 {% endblock %}
 
 {% block content %}
@@ -11,7 +11,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">{% if form.instance.id %}Edit Task{% else %}Create New Task{% endif %}</h4>
+                    <h4 class="mb-0">{% if form.instance.id %}Sửa Công Việc{% else %}Tạo Công Việc Mới{% endif %}</h4>
                 </div>
                 <div class="card-body">
                     <form method="POST">
@@ -20,9 +20,9 @@
                             {{ form|crispy }}
                         </fieldset>
                         <div class="form-group d-flex justify-content-between">
-                            <a href="{% url 'task-list' %}" class="btn btn-outline-secondary">Cancel</a>
+                            <a href="{% url 'task-list' %}" class="btn btn-outline-secondary">Hủy</a>
                             <button class="btn btn-primary" type="submit">
-                                {% if form.instance.id %}Update Task{% else %}Create Task{% endif %}
+                                {% if form.instance.id %}Cập Nhật{% else %}Tạo Mới{% endif %}
                             </button>
                         </div>
                     </form>
@@ -35,9 +35,9 @@
 
 {% block extra_js %}
 <script>
-    // Format the date-time input fields
+    // Định dạng các trường nhập ngày giờ
     document.addEventListener('DOMContentLoaded', function() {
-        // Add any additional JavaScript for the form if needed
+        // Thêm JavaScript bổ sung cho form nếu cần
     });
 </script>
 {% endblock %}

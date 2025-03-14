@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    {% if form.instance.id %}Edit Category{% else %}New Category{% endif %} - Task Manager
+    {% if form.instance.id %}Sửa Danh Mục{% else %}Thêm Danh Mục{% endif %} - Quản Lý Công Việc
 {% endblock %}
 
 {% block content %}
@@ -11,7 +11,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">{% if form.instance.id %}Edit Category{% else %}Create New Category{% endif %}</h4>
+                    <h4 class="mb-0">{% if form.instance.id %}Sửa Danh Mục{% else %}Tạo Danh Mục Mới{% endif %}</h4>
                 </div>
                 <div class="card-body">
                     <form method="POST">
@@ -20,9 +20,9 @@
                             {{ form|crispy }}
                         </fieldset>
                         <div class="form-group d-flex justify-content-between">
-                            <a href="{% url 'category-list' %}" class="btn btn-outline-secondary">Cancel</a>
+                            <a href="{% url 'category-list' %}" class="btn btn-outline-secondary">Hủy</a>
                             <button class="btn btn-primary" type="submit">
-                                {% if form.instance.id %}Update Category{% else %}Create Category{% endif %}
+                                {% if form.instance.id %}Cập Nhật{% else %}Tạo Mới{% endif %}
                             </button>
                         </div>
                     </form>

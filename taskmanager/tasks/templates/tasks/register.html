@@ -1,7 +1,7 @@
 {% extends 'tasks/base.html' %}
 {% load crispy_forms_tags %}
 
-{% block title %}Register - Task Manager{% endblock %}
+{% block title %}Đăng Ký - Quản Lý Công Việc{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
@@ -9,7 +9,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header bg-success text-white text-center">
-                    <h4>Create an Account</h4>
+                    <h4>Tạo Tài Khoản Mới</h4>
                 </div>
                 <div class="card-body">
                     <form method="POST">
@@ -18,12 +18,12 @@
                             {{ form|crispy }}
                         </fieldset>
                         <div class="form-group">
-                            <button class="btn btn-success btn-block" type="submit">Sign Up</button>
+                            <button class="btn btn-success btn-block" type="submit">Đăng Ký</button>
                         </div>
                     </form>
                     <div class="border-top pt-3 text-center">
                         <small class="text-muted">
-                            Already have an account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+                            Đã có tài khoản? <a class="ml-2" href="{% url 'login' %}">Đăng Nhập</a>
                         </small>
                     </div>
                 </div>

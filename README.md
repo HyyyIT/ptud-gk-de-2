@@ -27,7 +27,7 @@
 
 ### 1. Clone repository
 ```bash
-git clone https://github.com/your-username/ptud-gk-de-2.git
+git clone https://github.com/HyyyIT/ptud-gk-de-2.git
 cd ptud-gk-de-2
 ```
 
@@ -64,12 +64,6 @@ python manage.py runserver
 ```
 
 Sau khi thực hiện các bước trên, bạn có thể truy cập ứng dụng tại `http://127.0.0.1:8000/`
-
-## Cấu trúc dự án
-- `taskmanager/`: Thư mục chính của dự án Django
-- `tasks/`: Ứng dụng quản lý công việc
-- `static/`: Chứa các file tĩnh (CSS, JavaScript, images)
-- `media/`: Lưu trữ các file được người dùng tải lên (như avatar)
 
 ## Tính năng chính
 1. **Quản lý người dùng**:

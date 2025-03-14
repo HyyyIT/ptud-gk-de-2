@@ -1,6 +1,6 @@
 {% extends 'tasks/base.html' %}
 
-{% block title %}{{ object.title }} - Task Manager{% endblock %}
+{% block title %}{{ object.title }} - Quản Lý Công Việc{% endblock %}
 
 {% block content %}
 <div class="container mt-4">
@@ -11,7 +11,7 @@
                     <h3 class="mb-0">{{ object.title }}</h3>
                     <div>
                         {% if object.is_overdue %}
-                        <span class="badge badge-danger mr-2">Overdue</span>
+                        <span class="badge badge-danger mr-2">Quá hạn</span>
                         {% endif %}
                         <span class="badge 
                             {% if object.status == 'pending' %}badge-warning
@@ -25,42 +25,42 @@
                 </div>
                 <div class="card-body">
                     <div class="mb-4">
-                        <h5>Description</h5>
-                        <p>{% if object.description %}{{ object.description }}{% else %}No description provided.{% endif %}</p>
+                        <h5>Mô tả</h5>
+                        <p>{% if object.description %}{{ object.description }}{% else %}Không có mô tả.{% endif %}</p>
                     </div>
                     
                     <div class="row mb-4">
                         <div class="col-md-6">
-                            <h5>Created</h5>
-                            <p>{{ object.created|date:"F d, Y H:i" }}</p>
+                            <h5>Ngày tạo</h5>
+                            <p>{{ object.created|date:"d/m/Y H:i" }}</p>
                         </div>
                         <div class="col-md-6">
-                            <h5>Deadline</h5>
-                            <p>{% if object.deadline %}{{ object.deadline|date:"F d, Y H:i" }}{% else %}Not set{% endif %}</p>
+                            <h5>Hạn chót</h5>
+                            <p>{% if object.deadline %}{{ object.deadline|date:"d/m/Y H:i" }}{% else %}Chưa đặt{% endif %}</p>
                         </div>
                     </div>
                     
                     <div class="row mb-4">
                         <div class="col-md-6">
-                            <h5>Category</h5>
-                            <p>{% if object.category %}{{ object.category.name }}{% else %}Uncategorized{% endif %}</p>
+                            <h5>Danh mục</h5>
+                            <p>{% if object.category %}{{ object.category.name }}{% else %}Chưa phân loại{% endif %}</p>
                         </div>
                         <div class="col-md-6">
-                            <h5>Completion Date</h5>
-                            <p>{% if object.finished %}{{ object.finished|date:"F d, Y H:i" }}{% else %}Not completed yet{% endif %}</p>
+                            <h5>Ngày hoàn thành</h5>
+                            <p>{% if object.finished %}{{ object.finished|date:"d/m/Y H:i" }}{% else %}Chưa hoàn thành{% endif %}</p>
                         </div>
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-between">
                     <a href="{% url 'task-list' %}" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Back to List
+                        <i class="fas fa-arrow-left"></i> Quay lại
                     </a>
                     <div>
                         <a href="{% url 'task-update' object.id %}" class="btn btn-primary mr-2">
-                            <i class="fas fa-edit"></i> Edit
+                            <i class="fas fa-edit"></i> Sửa
                         </a>
                         <a href="{% url 'task-delete' object.id %}" class="btn btn-danger">
-                            <i class="fas fa-trash"></i> Delete
+                            <i class="fas fa-trash"></i> Xóa
                         </a>
                     </div>
                 </div>
