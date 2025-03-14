@@ -11,17 +11,192 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
     <!-- Custom CSS -->
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    
+    <style>
+        :root {
+            --primary-color: #4F46E5;
+            --primary-dark: #4338CA;
+            --secondary-color: #10B981;
+            --accent-color: #F59E0B;
+            --dark-color: #1F2937;
+            --light-color: #F3F4F6;
+            --danger-color: #EF4444;
+            --success-color: #10B981;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F9FAFB;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--dark-color);
+        }
+        
+        .navbar {
+            background-color: var(--primary-color) !important;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 1.25rem;
+            color: white !important;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            padding: 0.5rem 1rem !important;
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.9) !important;
+        }
+        
+        .nav-link:hover {
+            color: white !important;
+            background-color: var(--primary-dark);
+            border-radius: 6px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+        
+        .btn {
+            border-radius: 6px;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-success {
+            background-color: var(--success-color);
+            border-color: var(--success-color);
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            border-color: var(--danger-color);
+        }
+        
+        .footer {
+            margin-top: auto;
+            padding: 1.5rem 0;
+            background-color: var(--dark-color);
+            color: var(--light-color) !important;
+        }
+        
+        .alert {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .alert-success {
+            background-color: #ECFDF5;
+            color: var(--success-color);
+        }
+
+        .alert-danger {
+            background-color: #FEF2F2;
+            color: var(--danger-color);
+        }
+
+        .alert-warning {
+            background-color: #FFFBEB;
+            color: var(--accent-color);
+        }
+        
+        .dropdown-menu {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+        }
+
+        .dropdown-item {
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background-color: var(--light-color);
+            color: var(--primary-color);
+        }
+        
+        .badge {
+            padding: 0.4em 0.6em;
+            font-weight: 500;
+            border-radius: 6px;
+        }
+
+        .badge-danger {
+            background-color: var(--danger-color);
+        }
+
+        .badge-success {
+            background-color: var(--success-color);
+        }
+
+        .badge-warning {
+            background-color: var(--accent-color);
+        }
+
+        .form-control {
+            border-radius: 6px;
+            border: 1px solid #E5E7EB;
+            padding: 0.625rem 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1);
+        }
+
+        .text-primary {
+            color: var(--primary-color) !important;
+        }
+
+        .bg-primary {
+            background-color: var(--primary-color) !important;
+        }
+    </style>
     
     {% block extra_css %}{% endblock %}
 </head>
 <body>
     <!-- Thanh điều hướng -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'dashboard' %}">Quản Lý Công Việc</a>
+            <a class="navbar-brand" href="{% url 'dashboard' %}">
+                <i class="fas fa-tasks mr-2"></i>Quản Lý Công Việc
+            </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -29,48 +204,58 @@
                 <ul class="navbar-nav mr-auto">
                     {% if user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'dashboard' %}">Trang Chủ</a>
+                        <a class="nav-link" href="{% url 'dashboard' %}">
+                            <i class="fas fa-home mr-1"></i>Trang Chủ
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'task-list' %}">Công Việc</a>
+                        <a class="nav-link" href="{% url 'task-list' %}">
+                            <i class="fas fa-list-ul mr-1"></i>Công Việc
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'category-list' %}">Danh Mục</a>
+                        <a class="nav-link" href="{% url 'category-list' %}">
+                            <i class="fas fa-folder mr-1"></i>Danh Mục
+                        </a>
                     </li>
                     {% endif %}
                 </ul>
                 <ul class="navbar-nav ml-auto">
                     {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle position-relative" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle position-relative d-flex align-items-center" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             {% if user.profile and user.profile.avatar %}
-                                <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}" class="rounded-circle mr-1" style="width: 25px; height: 25px;">
+                                <img src="{{ user.profile.avatar.url }}" alt="{{ user.username }}" class="rounded-circle mr-2" style="width: 30px; height: 30px; object-fit: cover;">
                             {% else %}
-                                <i class="fas fa-user-circle mr-1"></i>
+                                <i class="fas fa-user-circle mr-2" style="font-size: 1.5rem;"></i>
                             {% endif %}
-                            {{ user.username }}
+                            <span>{{ user.username }}</span>
                             {% if overdue_tasks_count > 0 %}
-                            <span class="badge badge-danger badge-pill position-absolute" style="top: 0; right: 0;">
+                            <span class="badge badge-danger badge-pill ml-2">
                                 {{ overdue_tasks_count }}
                             </span>
                             {% endif %}
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="{% url 'profile' %}">
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item d-flex align-items-center" href="{% url 'profile' %}">
                                 <i class="fas fa-user-cog mr-2"></i>Hồ Sơ
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="{% url 'logout' %}">
+                            <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}">
                                 <i class="fas fa-sign-out-alt mr-2"></i>Đăng Xuất
                             </a>
                         </div>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'login' %}">Đăng Nhập</a>
+                        <a class="nav-link" href="{% url 'login' %}">
+                            <i class="fas fa-sign-in-alt mr-1"></i>Đăng Nhập
+                        </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'register' %}">Đăng Ký</a>
+                        <a class="nav-link" href="{% url 'register' %}">
+                            <i class="fas fa-user-plus mr-1"></i>Đăng Ký
+                        </a>
                     </li>
                     {% endif %}
                 </ul>
@@ -79,23 +264,28 @@
     </nav>
     
     <!-- Thông báo -->
-    <div class="container mt-3">
+    <div class="container mt-4">
         {% if messages %}
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
                     {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
             {% endfor %}
         {% endif %}
     </div>
     
     <!-- Nội dung chính -->
-    {% block content %}{% endblock %}
+    <main class="flex-grow-1 py-4">
+        {% block content %}{% endblock %}
+    </main>
     
     <!-- Chân trang -->
-    <footer class="bg-dark text-white text-center py-3 mt-5">
+    <footer class="footer text-center">
         <div class="container">
-            <p class="mb-0">&copy; 2025 Quản Lý Công Việc | Được tạo bởi Django</p>
+            <p class="mb-0">&copy; 2025 Quản Lý Công Việc | <i class="fab fa-python mr-1"></i>Được tạo bởi Nguyễn Đăng Tuấn Huy</p>
         </div>
     </footer>
     
