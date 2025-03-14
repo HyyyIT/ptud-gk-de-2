@@ -102,13 +102,21 @@
                                         </span>
                                     </td>
                                     <td>
-                                        {% if task.completed %}
+                                        {% if task.status == 'completed' %}
                                             <span class="badge badge-success">
                                                 <i class="fas fa-check mr-1"></i>Hoàn thành
                                             </span>
-                                        {% else %}
+                                        {% elif task.status == 'in_progress' %}
                                             <span class="badge badge-warning">
                                                 <i class="fas fa-spinner mr-1"></i>Đang thực hiện
+                                            </span>
+                                        {% elif task.status == 'pending' %}
+                                            <span class="badge badge-info">
+                                                <i class="fas fa-clock mr-1"></i>Chờ xử lý
+                                            </span>
+                                        {% else %}
+                                            <span class="badge badge-secondary">
+                                                <i class="fas fa-ban mr-1"></i>Đã hủy
                                             </span>
                                         {% endif %}
                                     </td>

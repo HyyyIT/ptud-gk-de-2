@@ -10,6 +10,7 @@ from django.core.files.base import ContentFile
 import requests
 from .models import Task, Profile, Category
 from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForm, TaskForm, CategoryForm
+from django.db import models
 
 def register(request):
     if request.method == 'POST':
@@ -78,16 +79,18 @@ def profile(request):
 
 @login_required
 def dashboard(request):
-    tasks = Task.objects.filter(user=request.user).order_by('-created')
-    overdue_tasks = [task for task in tasks if task.is_overdue()]
+    tasks = Task.objects.filter(user=request.user)
     
     context = {
-        'tasks': tasks,
-        'overdue_tasks': overdue_tasks,
-        'overdue_tasks_count': request.user.profile.overdue_tasks_count(),
-        'pending_tasks_count': tasks.filter(status='pending').count(),
-        'in_progress_tasks_count': tasks.filter(status='in_progress').count(),
-        'completed_tasks_count': tasks.filter(status='completed').count()
+        'total_tasks': tasks.count(),
+        'completed_tasks': tasks.filter(status='completed').count(),
+        'pending_tasks': tasks.filter(status__in=['pending', 'in_progress']).count(),
+        'overdue_tasks': len([task for task in tasks if task.is_overdue()]),
+        'recent_tasks': tasks.order_by('-created')[:5],  # 5 công việc gần đây nhất
+        'categories': Category.objects.filter(user=request.user).annotate(
+            task_count=models.Count('task')
+        ),
+        'overdue_tasks_count': request.user.profile.overdue_tasks_count()
     }
     return render(request, 'tasks/dashboard.html', context)
 
